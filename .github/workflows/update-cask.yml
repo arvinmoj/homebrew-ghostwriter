@@ -1,0 +1,53 @@
+name: Update Cask
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version (e.g. 0.5.0)"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    name: Update cask formula to v${{ inputs.version }}
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download release DMGs
+        run: |
+          TAG="v${{ inputs.version }}"
+          VERSION="${{ inputs.version }}"
+          curl -sL -o "GhostWriter_${VERSION}_aarch64.dmg" \
+            "https://github.com/arvinmoj/GhostWriter/releases/download/${TAG}/GhostWriter_${VERSION}_aarch64.dmg"
+          curl -sL -o "GhostWriter_${VERSION}_x64.dmg" \
+            "https://github.com/arvinmoj/GhostWriter/releases/download/${TAG}/GhostWriter_${VERSION}_x64.dmg"
+
+      - name: Compute SHA256
+        id: sha
+        run: |
+          VERSION="${{ inputs.version }}"
+          echo "arm_sha256=$(shasum -a 256 "GhostWriter_${VERSION}_aarch64.dmg" | cut -d' ' -f1)" >> "$GITHUB_OUTPUT"
+          echo "intel_sha256=$(shasum -a 256 "GhostWriter_${VERSION}_x64.dmg" | cut -d' ' -f1)" >> "$GITHUB_OUTPUT"
+
+      - name: Update cask formula
+        env:
+          VERSION: ${{ inputs.version }}
+          ARM_SHA256: ${{ steps.sha.outputs.arm_sha256 }}
+          INTEL_SHA256: ${{ steps.sha.outputs.intel_sha256 }}
+        run: |
+          sed -i '' "s/version \".*\"/version \"$VERSION\"/" Casks/ghostwriter.rb
+          sed -i '' "/on_arm/,/end/ s/sha256 \".*\"/sha256 \"$ARM_SHA256\"/" Casks/ghostwriter.rb
+          sed -i '' "/on_intel/,/end/ s/sha256 \".*\"/sha256 \"$INTEL_SHA256\"/" Casks/ghostwriter.rb
+
+      - name: Show updated formula
+        run: cat Casks/ghostwriter.rb
+
+      - name: Commit and push
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update GhostWriter to v${{ inputs.version }}"
+          branch: main
