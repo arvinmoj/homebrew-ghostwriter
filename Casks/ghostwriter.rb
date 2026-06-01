@@ -1,5 +1,5 @@
 cask "ghostwriter" do
-  version "0.4.0"
+  version "0.5.0"
   name "GhostWriter"
   desc "Universal AI Text Refiner - System-wide text transformation anywhere on your computer"
   homepage "https://github.com/arvinmoj/GhostWriter"
