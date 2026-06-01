@@ -1,4 +1,4 @@
-# 🍺 homebrew-ghostwriter
+# 🍺 GhostWriter
 
 Homebrew tap for [GhostWriter](https://github.com/arvinmoj/GhostWriter) — a system-wide AI text refiner.
 
