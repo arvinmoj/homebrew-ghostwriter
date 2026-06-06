@@ -6,11 +6,11 @@ cask "ghostwriter" do
 
   on_arm do
     url "https://github.com/arvinmoj/GhostWriter/releases/download/v#{version}/GhostWriter_#{version}_aarch64.dmg"
-    sha256 "0a9a45ed4cd2ddde73a7ce2d5d5f33465884fee7e9ceff05d725439b39292f1f"
+    sha256 "06b99080e4f0a768062b7596fb1f5a7cbc2d3808cc1a3d39a815f320c067bf3c"
   end
   on_intel do
     url "https://github.com/arvinmoj/GhostWriter/releases/download/v#{version}/GhostWriter_#{version}_x64.dmg"
-    sha256 "9fc8ece0695e0b415050f4fe6b0472a49dab80db483eafe8be9841eab52f05e1"
+    sha256 "ad2190140232290e7587ce87b1c2a021f0c9115e152b23343c0a6d80126d9f76"
   end
 
   app "GhostWriter.app"
