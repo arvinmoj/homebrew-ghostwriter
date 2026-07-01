@@ -1,16 +1,16 @@
 cask "ghostwriter" do
-  version "0.12.0"
+  version "1.0.0"
   name "GhostWriter"
   desc "Universal AI Text Refiner - System-wide text transformation anywhere on your computer"
   homepage "https://github.com/arvinmoj/GhostWriter"
 
   on_arm do
     url "https://github.com/arvinmoj/GhostWriter/releases/download/v#{version}/GhostWriter_#{version}_aarch64.dmg"
-    sha256 "b3700206be41a8d0c20306c051687ecd58508fb6a58eee0acb7159f25bc48259"
+    sha256 "e6eb9f4e36a0da7cc22d03d6d66e7a38a148bf9d48215815c9244d6691b2177b"
   end
   on_intel do
     url "https://github.com/arvinmoj/GhostWriter/releases/download/v#{version}/GhostWriter_#{version}_x64.dmg"
-    sha256 "1fd547567db60450b4c902e6bd6cb2af562b4af1bfd75edbc65a54db5488e8ea"
+    sha256 "2df0f13168a184142d6b9d4ab67551e1a911e16aaa56c4a1d68501ebb6f16a0a"
   end
 
   app "GhostWriter.app"
